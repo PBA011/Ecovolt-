@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123d32">
+<title>Eco Voltio | Tu energía, mejor aprovechada</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--forest:#123d32;--deep:#0b2b25;--green:#1c7655;--lime:#c8f169;--mint:#eaf5e9;--cream:#f7f8ef;--orange:#ff9c55;--ink:#18352d;--muted:#718078;--line:#e4e9df;--white:#fff;--shadow:0 18px 55px rgba(18,61,50,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:0 28px}
+header{background:var(--forest);color:white;position:relative;overflow:hidden}
+header:before,header:after{content:"";position:absolute;border:1px solid rgba(200,241,105,.18);border-radius:50%;width:430px;height:430px;right:-130px;top:-250px}
+header:after{width:280px;height:280px;right:140px;top:-190px}
+nav{height:82px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:10px;font:800 21px Manrope,sans-serif;letter-spacing:-.7px}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--lime);display:grid;place-items:center;color:var(--forest);font-size:22px}
+.navlinks{display:flex;gap:27px;align-items:center}.navlinks a{color:#d6e7dc;text-decoration:none;font-size:13px;font-weight:600}.navlinks a:hover{color:var(--lime)}
+.hero{padding:64px 0 76px;display:grid;grid-template-columns:1.12fr .88fr;gap:45px;align-items:center;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--lime);font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #c8f16922}
+h1{font:800 clamp(42px,5.6vw,68px)/1.04 Manrope,sans-serif;letter-spacing:-3px;margin:20px 0 18px;max-width:650px}h1 span{color:var(--lime)}.hero p{color:#c5d8cd;line-height:1.7;max-width:500px;font-size:16px;margin:0 0 27px}
+.primary{border:0;background:var(--lime);color:var(--forest);font-weight:800;padding:14px 20px;border-radius:12px;box-shadow:0 8px 22px #c8f16920;transition:.2s}.primary:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.hero-note{display:flex;gap:18px;margin-top:28px;color:#b7cec1;font-size:12px}.hero-note span{display:flex;align-items:center;gap:7px}
+.hero-art{min-height:330px;position:relative;display:grid;place-items:center}
+.orbit{width:300px;height:300px;border-radius:50%;border:1px solid #c8f16935;display:grid;place-items:center;position:relative;background:radial-gradient(circle,#1b6048 0%,#164635 55%,transparent 56%)}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px dashed #c8f16955;border-radius:50%;inset:25px}.orbit:after{inset:55px;border-style:solid;border-color:#c8f16922}
+.leaf{font-size:105px;filter:drop-shadow(0 12px 15px #071c16aa);transform:rotate(-20deg)}
+.float-card{position:absolute;background:#fff;color:var(--ink);padding:13px 16px;border-radius:15px;box-shadow:0 15px 35px #071c1640;font-size:12px;font-weight:700}.float-card strong{display:block;font:800 22px Manrope;color:var(--green);margin-top:4px}.fc1{top:26px;right:-5px}.fc2{bottom:28px;left:-4px}.spark{position:absolute;color:var(--lime);font-size:25px}.s1{top:30px;left:30px}.s2{right:25px;bottom:50px}
+main{padding:46px 0 80px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.kicker{color:var(--green);font-size:11px;letter-spacing:1.5px;font-weight:800;text-transform:uppercase}.section-head h2{font:800 29px Manrope;margin:7px 0 0;letter-spacing:-1px}.muted{color:var(--muted);font-size:13px;line-height:1.6}
+.month-select{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 13px;color:var(--ink);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:0 6px 22px #173b2b08}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:700}.stat-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--mint);font-size:17px}.stat-value{font:800 30px Manrope;letter-spacing:-1px;margin:14px 0 3px}.stat small{color:var(--muted);font-size:11px}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:20px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 6px 22px #173b2b08}.panel h3{font:800 18px Manrope;margin:0 0 5px}.panel-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:18px}.sector-list{display:grid;gap:12px}.sector{display:grid;grid-template-columns:38px 1fr 130px;align-items:center;gap:12px;padding:12px;background:#fbfcf8;border:1px solid #edf0e9;border-radius:13px}.sector-icon{width:38px;height:38px;background:var(--mint);border-radius:11px;display:grid;place-items:center;font-size:18px}.sector label{font-size:13px;font-weight:700;display:block}.sector small{color:var(--muted);font-size:10px}.sector input{width:100%;border:1px solid var(--line);background:white;border-radius:9px;padding:10px 9px;text-align:right;font-weight:700;color:var(--ink);outline:none}.sector input:focus,.field input:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 3px #1c76551a}
+.sector-total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:17px;margin-top:16px;font-weight:700;font-size:13px}.sector-total strong{font:800 19px Manrope}
+.tip{background:var(--forest);color:white;border-radius:16px;padding:17px;margin-top:18px;display:flex;gap:12px;align-items:flex-start}.tip b{color:var(--lime);font-size:12px}.tip p{margin:4px 0 0;color:#c8d9cf;font-size:11px;line-height:1.5}
+.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:11px;font-weight:800;color:#53665c}.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);outline:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.add-btn{width:100%;border:0;border-radius:10px;background:var(--forest);color:white;padding:12px;font-weight:800;margin-top:3px}.add-btn:hover{background:var(--green)}
+.ideas{display:grid;gap:10px;margin-top:18px}.idea{border:1px solid var(--line);border-radius:13px;padding:13px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.idea-title{font-size:12px;font-weight:800}.idea-meta{font-size:10px;color:var(--muted);margin-top:4px}.idea-saving{font:800 14px Manrope;color:var(--green);text-align:right}.idea-saving small{display:block;font:500 9px 'DM Sans';color:var(--muted)}.idea-actions{display:flex;gap:6px;grid-column:1/-1;align-items:center;justify-content:space-between}.toggle{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);font-weight:700}.toggle input{accent-color:var(--green)}.delete{border:0;background:#fff0eb;color:#a84e32;border-radius:8px;padding:6px 9px;font-size:10px;font-weight:800}
+.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px;background:#fbfcf8;border-radius:12px}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}.progress-track{height:10px;border-radius:20px;background:#edf1e9;overflow:hidden;margin:12px 0}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#1c7655,#b8e65c);border-radius:20px;transition:width .3s}.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare-box{padding:15px;border-radius:13px;background:#f5f8f0}.compare-box span{font-size:10px;color:var(--muted);font-weight:700}.compare-box strong{display:block;font:800 22px Manrope;margin-top:7px}.footer{background:var(--deep);color:#b8cfc1;padding:25px 0;font-size:11px}.footer .wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.footer b{color:var(--lime)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:var(--forest);color:white;padding:12px 18px;border-radius:12px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:48px 0 55px}.hero-art{min-height:280px}.orbit{width:250px;height:250px}.leaf{font-size:85px}.grid,.bottom-grid{grid-template-columns:1fr}.navlinks{gap:12px}.navlinks a{font-size:11px}.stats{gap:9px}.stat{padding:15px}.stat-value{font-size:23px}}
+@media(max-width:520px){.wrap{padding:0 17px}nav{height:68px}.navlinks a:not(:last-child){display:none}h1{letter-spacing:-2px}.hero{gap:5px}.hero-art{min-height:245px}.orbit{width:220px;height:220px}.fc1{right:0}.fc2{left:0}.stats{grid-template-columns:1fr}.stat{display:flex;align-items:center;gap:14px}.stat-top{min-width:36px}.stat-value{margin:0 0 2px}.stat small{display:none}.stat>div:nth-child(2){flex:1}.section-head{align-items:start;flex-direction:column}.panel{padding:17px}.sector{grid-template-columns:34px 1fr 105px;gap:8px;padding:9px}.sector-icon{width:34px;height:34px}.form-row{grid-template-columns:1fr}.footer .wrap{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <nav>
+   <div class="brand"><div class="brand-mark">ϟ</div>eco voltio</div>
+   <div class="navlinks"><a href="#panel">Mi consumo</a><a href="#ideas">Soluciones</a><a href="#resumen">Mi ahorro</a></div>
+  </nav>
+  <section class="hero">
+   <div>
+    <div class="eyebrow"><span class="dot"></span> Energía consciente · Futuro sostenible</div>
+    <h1>Tu energía.<br><span>Tu planeta.</span><br>Tu ahorro.</h1>
+    <p>Descubre dónde se va tu energía, crea hábitos más sostenibles y convierte cada pequeño cambio en un ahorro real.</p>
+    <button class="primary" onclick="document.querySelector('#panel').scrollIntoView({behavior:'smooth'})">Empieza a ahorrar <span aria-hidden="true">→</span></button>
+    <div class="hero-note"><span>✳ Fácil de usar</span><span>↗ Ahorro a tu medida</span><span>♧ Más sostenible</span></div>
+   </div>
+   <div class="hero-art" aria-label="Ilustración de una hoja y energía sostenible">
+    <span class="spark s1">✦</span><span class="spark s2">✧</span>
+    <div class="orbit"><div class="leaf">🌿</div></div>
+    <div class="float-card fc1">Ahorro estimado<strong id="heroSaving">0,00 €</strong></div>
+    <div class="float-card fc2">Tu impacto<strong>Empieza hoy ↗</strong></div>
+   </div>
+  </section>
+ </div>
+</header>
+<main class="wrap">
+ <section id="panel">
+  <div class="section-head"><div><div class="kicker">Tu espacio personal</div><h2>Tu consumo energético</h2><div class="muted">Introduce cuánto gastas en cada sector durante el mes seleccionado.</div></div><input class="month-select" type="month" id="monthPicker" aria-label="Mes de consulta"></div>
+  <div class="stats">
+   <article class="stat"><div class="stat-top"><span>Gasto mensual</span><span class="stat-icon">⚡</span></div><div><div class="stat-value" id="totalSpend">0,00 €</div><small>Suma de todos tus sectores</small></div></article>
+   <article class="stat"><div class="stat-top"><span>Ahorro estimado</span><span class="stat-icon">🌱</span></div><div><div class="stat-value" id="totalSaving">0,00 €</div><small>Con tus soluciones activas</small></div></article>
+   <article class="stat"><div class="stat-top"><span>Gasto tras mejoras</span><span class="stat-icon">🍃</span></div><div><div class="stat-value" id="afterSpend">0,00 €</div><small>Gasto menos ahorro estimado</small></div></article>
+  </div>
+  <div class="grid">
+   <section class="panel">
+    <div class="panel-head"><div><h3>Desglose por sectores</h3><div class="muted">Importes mensuales en euros (€)</div></div><span style="font-size:20px">📊</span></div>
+    <div class="sector-list" id="sectorList">
+     <div class="sector"><div class="sector-icon">💡</div><div><label for="electricidad">Electricidad</label><small>Luz y aparatos eléctricos</small></div><input id="electricidad" type="number" min="0" step="0.01" placeholder="0,00" data-sector="electricidad"></div>
+     <div class="sector"><div class="sector-icon">🔥</div><div><label for="calefaccion">Calefacción y climatización</label><small>Calefacción, aire acondicionado</small></div><input id="calefaccion" type="number" min="0" step="0.01" placeholder="0,00" data-sector="calefaccion"></div>
+     <div class="sector"><div class="sector-icon">💧</div><div><label for="agua">Agua caliente</label><small>Agua y calentador</small></div><input id="agua" type="number" min="0" step="0.01" placeholder="0,00" data-sector="agua"></div>
+     <div class="sector"><div class="sector-icon">🚲</div><div><label for="transporte">Transporte</label><small>Combustible y desplazamientos</small></div><input id="transporte" type="number" min="0" step="0.01" placeholder="0,00" data-sector="transporte"></div>
+     <div class="sector"><div class="sector-icon">🏠</div><div><label for="otros">Otros gastos</label><small>Otros consumos energéticos</small></div><input id="otros" type="number" min="0" step="0.01" placeholder="0,00" data-sector="otros"></div>
+    </div>
+    <div class="sector-total"><span>Gasto total del mes</span><strong id="sectorTotal">0,00 €</strong></div>
+    <div class="tip"><span style="font-size:22px">🌍</span><div><b>Un consejo verde</b><p>Empieza por identificar qué sector representa el mayor gasto. Pequeños cambios constantes pueden marcar una gran diferencia.</p></div></div>
+   </section>
+   <section class="panel" id="ideas">
+    <div class="panel-head"><div><h3>Mis ideas para ahorrar</h3><div class="muted">Añade medidas y calcula su ahorro mensual.</div></div><span style="font-size:20px">💚</span></div>
+    <form id="ideaForm">
+     <div class="field"><label for="ideaName">Tu solución o propuesta</label><input id="ideaName" maxlength="70" required placeholder="Ej. Apagar luces al salir"></div>
+     <div class="form-row">
+      <div class="field"><label for="ideaSector">Sector</label><select id="ideaSector"><option value="electricidad">Electricidad</option><option value="calefaccion">Calefacción</option><option value="agua">Agua caliente</option><option value="transporte">Transporte</option><option value="otros">Otros</option></select></div>
+      <div class="field"><label for="ideaAmount">Ahorro estimado €/mes</label><input id="ideaAmount" type="number" min="0.01" step="0.01" required placeholder="Ej. 8"></div>
+     </div>
+     <button class="add-btn" type="submit">＋ Añadir solución</button>
+    </form>
+    <div class="ideas" id="ideaList"><div class="empty">Todavía no has añadido soluciones. ¡Tu primera idea puede ser el comienzo del cambio!</div></div>
+   </section>
+  </div>
+ </section>
+ <section id="resumen" style="margin-top:34px">
+  <div class="section-head"><div><div class="kicker">Resultados</div><h2>Tu ahorro también cuenta</h2><div class="muted">Compara tus resultados y sigue tu progreso mes a mes.</div></div></div>
+  <div class="bottom-grid">
+   <article class="panel"><h3>Este mes, paso a paso</h3><div class="muted">Porcentaje de tu gasto cubierto por el ahorro estimado.</div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div style="display:flex;justify-content:space-between;font-size:11px"><span class="muted">Ahorro / gasto</span><strong id="progressLabel">0 %</strong></div></article>
+   <article class="panel"><h3>Comparativa mensual</h3><div class="muted" style="margin-bottom:13px">Ahorro estimado de este mes frente al anterior.</div><div class="compare"><div class="compare-box"><span>MES SELECCIONADO</span><strong id="compareCurrent">0,00 €</strong></div><div class="compare-box"><span>MES ANTERIOR</span><strong id="comparePrevious">0,00 €</strong></div></div><p class="muted" id="compareNote" style="margin:13px 0 0;font-size:11px">Añade soluciones para empezar a ver tu progreso.</p></article>
+  </div>
+ </section>
+</main>
+<footer class="footer"><div class="wrap"><div><b>eco voltio</b> · Cada gesto suma energía positiva.</div><div>Los ahorros son estimaciones introducidas por el usuario, no mediciones reales.</div></div></footer>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const sectors=['electricidad','calefaccion','agua','transporte','otros'];
+const names={electricidad:'Electricidad',calefaccion:'Calefacción',agua:'Agua caliente',transporte:'Transporte',otros:'Otros'};
+const STORAGE='ecoVoltioData_v1';
+let db=load();
+const picker=document.getElementById('monthPicker');
+const now=new Date();
+const monthKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+picker.value=monthKey(now);
+let current=picker.value;
+function load(){try{return JSON.parse(localStorage.getItem(STORAGE))||{months:{}}}catch(e){return{months:{}}}}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(db))}
+function monthData(key){if(!db.months[key])db.months[key]={expenses:{},ideas:[]};return db.months[key]}
+function euro(n){return (Number(n)||0).toLocaleString('es-ES',{style:'currency',currency:'EUR'})}
+function amount(n){return Math.max(0,Number(n)||0)}
+function totals(key){const m=monthData(key);const spend=sectors.reduce((s,k)=>s+amount(m.expenses[k]),0);const saving=m.ideas.filter(i=>i.active).reduce((s,i)=>s+amount(i.amount),0);return{spend,saving:Math.min(spend,saving),rawSaving:saving,after:Math.max(0,spend-saving)}}
+function render(){
+ const m=monthData(current);
+ sectors.forEach(k=>{const el=document.querySelector(`[data-sector="${k}"]`);if(document.activeElement!==el)el.value=m.expenses[k]??''});
+ const t=totals(current);
+ document.getElementById('totalSpend').textContent=euro(t.spend);
+ document.getElementById('sectorTotal').textContent=euro(t.spend);
+ document.getElementById('totalSaving').textContent=euro(t.saving);
+ document.getElementById('heroSaving').textContent=euro(t.saving);
+ document.getElementById('afterSpend').textContent=euro(t.after);
+ const pct=t.spend?Math.min(100,t.saving/t.spend*100):0;
+ document.getElementById('progressFill').style.width=pct+'%';
+ document.getElementById('progressLabel').textContent=Math.round(pct)+' %';
+ renderIdeas(m);
+ const prevDate=new Date(Number(current.slice(0,4)),Number(current.slice(5,7))-2,1);
+ const prevKey=monthKey(prevDate);
+ const prev=totals(prevKey);
+ document.getElementById('compareCurrent').textContent=euro(t.saving);
+ document.getElementById('comparePrevious').textContent=euro(prev.saving);
+ const diff=t.saving-prev.saving;
+ document.getElementById('compareNote').textContent=diff>0?`¡Bien! Tu ahorro estimado ha aumentado ${euro(diff)} respecto al mes anterior.`:diff<0?`Tu ahorro estimado es ${euro(Math.abs(diff))} menor que el mes anterior.`:'Tu ahorro estimado se mantiene igual que el mes anterior.';
+}
+function renderIdeas(m){
+ const list=document.getElementById('ideaList');
+ if(!m.ideas.length){list.innerHTML='<div class="empty">Todavía no has añadido soluciones. ¡Tu primera idea puede ser el comienzo del cambio!</div>';return}
+ list.innerHTML=m.ideas.map((i,index)=>`<article class="idea"><div><div class="idea-title">${escapeHTML(i.name)}</div><div class="idea-meta">${names[i.sector]||'Otros'}</div></div><div class="idea-saving">${euro(i.amount)}<small>ahorro / mes</small></div><div class="idea-actions"><label class="toggle"><input type="checkbox" data-toggle="${index}" ${i.active?'checked':''}> Incluir en mi ahorro</label><button class="delete" type="button" data-delete="${index}">Eliminar</button></div></article>`).join('');
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function notify(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2300)}
+sectors.forEach(k=>document.querySelector(`[data-sector="${k}"]`).addEventListener('input',e=>{
+ const val=e.target.value;monthData(current).expenses[k]=val===''?'':amount(val);save();render();
+}));
+picker.addEventListener('change',()=>{current=picker.value||monthKey(now);render()});
+document.getElementById('ideaForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('ideaName').value.trim();
+ const value=Number(document.getElementById('ideaAmount').value);
+ if(!name||!Number.isFinite(value)||value<=0){notify('Introduce una solución y un ahorro mayor que cero.');return}
+ monthData(current).ideas.push({name,sector:document.getElementById('ideaSector').value,amount:value,active:true});
+ save();e.target.reset();render();notify('¡Solución añadida! Tu ahorro se ha actualizado.');
+});
+document.getElementById('ideaList').addEventListener('change',e=>{
+ if(e.target.matches('[data-toggle]')){monthData(current).ideas[Number(e.target.dataset.toggle)].active=e.target.checked;save();render()}
+});
+document.getElementById('ideaList').addEventListener('click',e=>{
+ const b=e.target.closest('[data-delete]');if(!b)return;
+ monthData(current).ideas.splice(Number(b.dataset.delete),1);save();render();notify('Solución eliminada.');
+});
+render();
+</script>
+</body>
+</html>

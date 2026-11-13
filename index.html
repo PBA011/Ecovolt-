@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eco Voltio 🌱</title>
+
+<style>
+:root {
+  --verde: #238b57;
+  --oscuro: #123b2a;
+  --lima: #c9f36b;
+  --fondo: #f4f8f1;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--oscuro);
+}
+header {
+  background: linear-gradient(120deg, var(--oscuro), var(--verde));
+  color: white;
+  padding: 25px;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  background: #174b34;
+  padding: 12px;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-weight: bold;
+}
+nav button { background: transparent; color: white; }
+nav button.active, nav button:hover {
+  background: var(--lima);
+  color: var(--oscuro);
+}
+main { max-width: 1050px; margin: 25px auto; padding: 0 15px 40px; }
+.page { display: none; }
+.page.active { display: block; }
+.hero {
+  background: linear-gradient(120deg,#174a32,#329b60);
+  color: white;
+  padding: 25px;
+  border-radius: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+  gap: 13px;
+}
+.card, .panel, .entry {
+  background: white;
+  border: 1px solid #dce8dc;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.metric { font-size: 27px; font-weight: bold; color: var(--verde); }
+.small { color: #64766b; font-size: 13px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+form { display: grid; gap: 9px; }
+label { font-weight: bold; font-size: 14px; }
+input, select, textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbdaca;
+  border-radius: 9px;
+  font: inherit;
+}
+textarea { min-height: 80px; }
+.btn { background: var(--verde); color: white; }
+.secondary { background: #eaf4e9; color: var(--oscuro); }
+.danger { background: #fff0ee; color: #b94b43; }
+.list { display: grid; gap: 9px; margin-top: 14px; }
+.entry { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.entry p { color: #64766b; font-size: 13px; }
+.actions { display: flex; gap: 5px; flex-wrap: wrap; }
+.bar { height: 9px; background: #e8efe7; border-radius: 20px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--verde); }
+.notice { background: #eef7e8; padding: 12px; border-radius: 10px; }
+footer { text-align: center; padding: 20px; color: #64766b; }
+@media(max-width:700px) {
+  .two { grid-template-columns: 1fr; }
+  .entry { align-items: flex-start; flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌱 ECO VOLTIO</h1>
+  <p>Pequeños cambios, grandes ahorros para el planeta.</p>
+</header>
+
+<nav>
+  <button class="active" data-tab="inicio">Inicio</button>
+  <button data-tab="consumo">Mi consumo</button>
+  <button data-tab="soluciones">Soluciones</button>
+  <button data-tab="ahorro">Mi ahorro</button>
+  <button data-tab="consejos">Consejos</button>
+  <button data-tab="resenas">Reseñas</button>
+</nav>
+
+<main>
+
+<section id="inicio" class="page active">
+  <div class="hero">
+    <h2>Controla tu energía. Cuida el planeta.</h2>
+    <p>Registra tus gastos, aplica soluciones y consulta tu ahorro estimado.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Gasto este mes</h3><div class="metric" id="dashSpend">0 €</div></div>
+    <div class="card"><h3>Ahorro estimado</h3><div class="metric" id="dashSave">0 €</div></div>
+    <div class="card"><h3>Gasto optimizado</h3><div class="metric" id="dashNet">0 €</div></div>
+    <div class="card"><h3>Reseñas</h3><div class="metric" id="dashReviews">0</div></div>
+  </div>
+  <div class="panel">
+    <h3>Progreso de ahorro</h3>
+    <p id="progress" class="small">Añade tus gastos para empezar.</p>
+    <div class="bar"><span id="progressBar" style="width:0%"></span></div>
+  </div>
+</section>
+
+<section id="consumo" class="page">
+  <h2>Mi consumo</h2>
+  <p class="small">Añade, modifica o elimina gastos por sector y mes.</p>
+  <div class="two">
+    <div class="panel">
+      <h3 id="expenseTitle">Añadir gasto</h3>
+      <form id="expenseForm">
+        <input type="hidden" id="expenseId">
+        <label>Sector</label>
+        <select id="sector">
+          <option>Electricidad</option>
+          <option>Calefacción</option>
+          <option>Agua caliente</option>
+          <option>Transporte</option>
+          <option>Otros</option>
+        </select>
+        <label>Importe (€)</label>
+        <input id="amount" type="number" min=".01" step=".01" required>
+        <label>Mes</label>
+        <input id="month" type="month" required>
+        <label>Nota (opcional)</label>
+        <input id="note" maxlength="100">
+        <div>
+          <button class="btn" id="expenseSave">Guardar gasto</button>
+          <button type="button" class="secondary" id="expenseCancel" hidden>Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>Resumen mensual</h3>
+      <label>Mes a consultar</label>
+      <input id="filterMonth" type="month">
+      <div class="metric" id="filteredTotal">0 €</div>
+      <p class="small" id="filteredCount"></p>
+      <div id="sectorTotals"></div>
+    </div>
+  </div>
+  <div class="list" id="expenses"></div>
+</section>
+
+<section id="soluciones" class="page">
+  <h2>Soluciones de ahorro</h2>
+  <p class="small">Estima cuánto ahorrarías al mes con cada medida.</p>
+  <div class="two">
+    <div class="panel">
+      <h3 id="solutionTitle">Añadir solución</h3>
+      <form id="solutionForm">
+        <input type="hidden" id="solutionId">
+        <label>Medida</label>
+        <input id="solutionName" required maxlength="90" placeholder="Ej. Usar bombillas LED">
+        <label>Sector</label>
+        <select id="solutionSector">
+          <option>Electricidad</option>
+          <option>Calefacción</option>
+          <option>Agua caliente</option>
+          <option>Transporte</option>
+          <option>Otros</option>
+        </select>
+        <label>Ahorro estimado mensual (€)</label>
+        <input id="solutionAmount" type="number" min="0" step=".01" required>
+        <div>
+          <button class="btn" id="solutionSave">Guardar solución</button>
+          <button type="button" class="secondary" id="solutionCancel" hidden>Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>Ahorro potencial</h3>
+      <div class="metric" id="potential">0 €</div>
+      <p class="small">Suma de tus soluciones activas.</p>
+    </div>
+  </div>
+  <div class="list" id="solutions"></div>
+</section>
+
+<section id="ahorro" class="page">
+  <h2>Mi ahorro</h2>
+  <p class="small">Comparación automática del mes actual y el anterior.</p>
+  <div class="grid">
+    <div class="card"><h3>Gasto actual</h3><div class="metric" id="nowSpend">0 €</div><p class="small" id="nowLabel"></p></div>
+    <div class="card"><h3>Ahorro estimado actual</h3><div class="metric" id="nowSave">0 €</div></div>
+    <div class="card"><h3>Gasto anterior</h3><div class="metric" id="prevSpend">0 €</div><p class="small" id="prevLabel"></p></div>
+    <div class="card"><h3>Ahorro estimado anterior</h3><div class="metric" id="prevSave">0 €</div></div>
+  </div>
+  <div class="notice">El ahorro es una estimación basada en tus medidas y no equivale necesariamente al ahorro real de tu factura.</div>
+</section>
+
+<section id="consejos" class="page">
+  <h2>Consejos ecológicos</h2>
+  <div class="grid">
+    <div class="card"><h3>💡 Electricidad</h3><p>Apaga luces al salir, aprovecha la luz natural y utiliza bombillas LED.</p></div>
+    <div class="card"><h3>🌡️ Calefacción</h3><p>Mejora el aislamiento y ajusta el termostato a una temperatura confortable.</p></div>
+    <div class="card"><h3>🚿 Agua caliente</h3><p>Reduce el tiempo de ducha y evita desperdiciar agua caliente.</p></div>
+    <div class="card"><h3>🚲 Transporte</h3><p>Cuando sea posible, camina, usa bicicleta o transporte público.</p></div>
+    <div class="card"><h3>🔌 Electrodomésticos</h3><p>Elige programas eficientes y utiliza los aparatos con cargas adecuadas.</p></div>
+    <div class="card"><h3>📊 Facturas</h3><p>Compara periodos equivalentes para detectar cambios en tu consumo.</p></div>
+  </div>
+</section>
+
+<section id="resenas" class="page">
+  <h2>Reseñas</h2>
+  <div class="two">
+    <div class="panel">
+      <h3>Publica tu opinión</h3>
+      <form id="reviewForm">
+        <label>Nombre o alias</label>
+        <input id="reviewName" required maxlength="35">
+        <label>Valoración</label>
+        <select id="rating">
+          <option value="5">5 - Excelente</option>
+          <option value="4">4 - Muy buena</option>
+          <option value="3">3 - Buena</option>
+          <option value="2">2 - Regular</option>
+          <option value="1">1 - Mejorable</option>
+        </select>
+        <label>Comentario</label>
+        <textarea id="reviewText" required maxlength="500"></textarea>
+        <button class="btn">Publicar reseña</button>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>Valoración media</h3>
+      <div class="metric" id="average">— / 5</div>
+      <p id="reviewCount" class="small">Todavía no hay reseñas.</p>
+      <div id="ratingBars"></div>
+    </div>
+  </div>
+  <div class="list" id="reviews"></div>
+  <p class="notice">Las reseñas se guardan en este navegador. Para compartirlas con todos los visitantes hay que conectar una base de datos.</p>
+</section>
+</main>
+
+<footer>🌍 Eco Voltio · Tus datos se guardan en este navegador.</footer>
+
+<script>
+(() => {
+"use strict";
+
+const $ = id => document.getElementById(id);
+const key = "ecoVoltioV1";
+const date = new Date();
+const current = date.getFullYear() + "-" + String(date.getMonth()+1).padStart(2,"0");
+
+let data;
+try {
+  data = JSON.parse(localStorage.getItem(key)) ||
+    {expenses:[], solutions:[], reviews:[]};
+} catch {
+  data = {expenses:[], solutions:[], reviews:[]};
+}
+
+const save = () => localStorage.setItem(key, JSON.stringify(data));
+const uid = () => crypto.randomUUID ? crypto.randomUUID() : String(Date.now()+Math.random());
+const eur = n => Number(n||0).toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+const safe = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const label = m => {
+  if (!m) return "";
+  const [y,mo] = m.split("-").map(Number);
+  return new Date(y,mo-1).toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+};
+const spend = m => data.expenses.filter(x=>x.month===m).reduce((s,x)=>s+x.amount,0);
+const potential = () => data.solutions.filter(x=>x.active).reduce((s,x)=>s+x.saving,0);
+const saving = m => Math.min(spend(m),potential());
+
+document.querySelectorAll("nav button").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));
+    document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab));
+  };
+});
+
+$("month").value=current;
+$("filterMonth").value=current;
+$("filterMonth").onchange=renderExpenses;
+
+$("expenseForm").onsubmit=e=>{
+  e.preventDefault();
+  const eid=$("expenseId").value;
+  const item={id:eid||uid(),sector:$("sector").value,amount:Number($("amount").value),month:$("month").value,note:$("note").value.trim()};
+  if(!item.month||item.amount<=0)return;
+  if(eid)data.expenses=data.expenses.map(x=>x.id===eid?item:x);
+  else data.expenses.push(item);
+  save();resetExpense();render();
+};
+
+function resetExpense(){
+  $("expenseForm").reset();$("expenseId").value="";$("month").value=current;
+  $("expenseTitle").textContent="Añadir gasto";
+  $("expenseSave").textContent="Guardar gasto";
+  $("expenseCancel").hidden=true;
+}
+$("expenseCancel").onclick=resetExpense;
+
+function editExpense(eid){
+  const x=data.expenses.find(x=>x.id===eid);
+  $("expenseId").value=x.id;$("sector").value=x.sector;
+  $("amount").value=x.amount;$("month").value=x.month;$("note").value=x.note;
+  $("expenseTitle").textContent="Editar gasto";
+  $("expenseSave").textContent="Guardar cambios";
+  $("expenseCancel").hidden=false;
+  document.querySelector('[data-tab="consumo"]').click();
+}
+function delExpense(eid){
+  if(confirm("¿Eliminar este gasto?")){
+    data.expenses=data.expenses.filter(x=>x.id!==eid);save();render();
+  }
+}
+
+$("solutionForm").onsubmit=e=>{
+  e.preventDefault();
+  const sid=$("solutionId").value;
+  const old=data.solutions.find(x=>x.id===sid);
+  const item={id:sid||uid(),name:$("solutionName").value.trim(),sector:$("solutionSector").value,saving:Number($("solutionAmount").value),active:old?old.active:true};
+  if(!item.name||item.saving<0)return;
+  if(sid)data.solutions=data.solutions.map(x=>x.id===sid?item:x);
+  else data.solutions.push(item);
+  save();resetSolution();render();
+};
+
+function resetSolution(){
+  $("solutionForm").reset();$("solutionId").value="";
+  $("solutionTitle").textContent="Añadir solución";
+  $("solutionSave").textContent="Guardar solución";
+  $("solutionCancel").hidden=true;
+}
+$("solutionCancel").onclick=resetSolution;
+
+function editSolution(sid){
+  const x=data.solutions.find(x=>x.id===sid);
+  $("solutionId").value=x.id;$("solutionName").value=x.name;
+  $("solutionSector").value=x.sector;$("solutionAmount").value=x.saving;
+  $("solutionTitle").textContent="Editar solución";
+  $("solutionSave").textContent="Guardar cambios";
+  $("solutionCancel").hidden=false;
+  document.querySelector('[data-tab="soluciones"]').click();
+}
+function toggleSolution(sid){
+  data.solutions=data.solutions.map(x=>x.id===sid?{...x,active:!x.active}:x);
+  save();render();
+}
+function delSolution(sid){
+  if(confirm("¿Eliminar esta solución?")){
+    data.solutions=data.solutions.filter(x=>x.id!==sid);save();render();
+  }
+}
+
+$("reviewForm").onsubmit=e=>{
+  e.preventDefault();
+  data.reviews.unshift({
+    id:uid(),name:$("reviewName").value.trim(),
+    rating:Number($("rating").value),
+    text:$("reviewText").value.trim(),
+    date:new Date().toLocaleDateString("es-ES")
+  });
+  save();$("reviewForm").reset();render();
+};
+function delReview(rid){
+  if(confirm("¿Eliminar esta reseña?")){
+    data.reviews=data.reviews.filter(x=>x.id!==rid);save();render();
+  }
+}
+
+function renderExpenses(){
+  const m=$("filterMonth").value||current;
+  const items=data.expenses.filter(x=>x.month===m);
+  $("filteredTotal").textContent=eur(spend(m));
+  $("filteredCount").textContent=items.length+" gasto(s) · "+label(m);
+  const totals={};
+  items.forEach(x=>totals[x.sector]=(totals[x.sector]||0)+x.amount);
+  $("sectorTotals").innerHTML=Object.entries(totals).map(([k,v])=>`<p>${safe(k)}: <b>${eur(v)}</b></p>`).join("");
+  $("expenses").innerHTML=items.length?items.map(x=>`
+    <div class="entry"><div><b>${safe(x.sector)} · ${eur(x.amount)}</b>
+    <p>${safe(x.month)} ${x.note?"· "+safe(x.note):""}</p></div>
+    <div class="actions"><button class="secondary" data-edit="${x.id}">Editar</button>
+    <button class="danger" data-del="${x.id}">Eliminar</button></div></div>`).join(""):"<div class='notice'>No hay gastos registrados para este mes.</div>";
+  $("expenses").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editExpense(b.dataset.edit));
+  $("expenses").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>delExpense(b.dataset.del));
+}
+
+function renderSolutions(){
+  $("potential").textContent=eur(potential());
+  $("solutions").innerHTML=data.solutions.length?data.solutions.map(x=>`
+    <div class="entry"><div><b>${safe(x.name)}</b>
+    <p>${safe(x.sector)} · ${eur(x.saving)} al mes · ${x.active?"Activa":"Pausada"}</p></div>
+    <div class="actions"><button class="secondary" data-toggle="${x.id}">${x.active?"Pausar":"Activar"}</button>
+    <button class="secondary" data-edit="${x.id}">Editar</button>
+    <button class="danger" data-del="${x.id}">Eliminar</button></div></div>`).join(""):"<div class='notice'>Todavía no has añadido soluciones.</div>";
+  $("solutions").querySelectorAll("[data-toggle]").forEach(b=>b.onclick=()=>toggleSolution(b.dataset.toggle));
+  $("solutions").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editSolution(b.dataset.edit));
+  $("solutions").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>delSolution(b.dataset.del));
+}
+
+function renderReviews(){
+  const n=data.reviews.length;
+  const avg=n?data.reviews.reduce((s,x)=>s+x.rating,0)/n:0;
+  $("average").textContent=n?avg.toFixed(1)+" / 5":"— / 5";
+  $("reviewCount").textContent=n?n+" reseña(s) guardada(s) en este navegador.":"Todavía no hay reseñas.";
+  $("ratingBars").innerHTML=[5,4,3,2,1].map(r=>{
+    const c=data.reviews.filter(x=>x.rating===r).length;
+    return `<p class="small">${r} estrellas · ${c}<div class="bar"><span style="width:${n?c/n*100:0}%"></span></div></p>`;
+  }).join("");
+  $("reviews").innerHTML=n?data.reviews.map(x=>`
+    <div class="entry"><div><b>${safe(x.name)} · <span style="color:#d69a16">${"★".repeat(x.rating)}${"☆".repeat(5-x.rating)}</span></b>
+    <p>${safe(x.text)}</p><span class="small">${safe(x.date)}</span></div>
+    <button class="danger" data-review-del="${x.id}">Eliminar</button></div>`).join(""):"<div class='notice'>Sé la primera persona en dejar una reseña.</div>";
+  $("reviews").querySelectorAll("[data-review-del]").forEach(b=>b.onclick=()=>delReview(b.dataset.reviewDel));
+}
+
+function render(){
+  const s=spend(current),a=saving(current);
+  const d=new Date(date.getFullYear(),date.getMonth()-1,1);
+  const prev=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+  const pct=s?Math.round(a/s*100):0;
+  $("dashSpend").textContent=eur(s);$("dashSave").textContent=eur(a);
+  $("dashNet").textContent=eur(s-a);$("dashReviews").textContent=data.reviews.length;
+  $("progress").textContent=s?"Ahorro estimado del "+pct+"% del gasto registrado este mes.":"Añade tus gastos de este mes para empezar.";
+  $("progressBar").style.width=pct+"%";
+  $("nowSpend").textContent=eur(s);$("nowSave").textContent=eur(a);
+  $("nowLabel").textContent=label(current);
+  $("prevSpend").textContent=eur(spend(prev));$("prevSave").textContent=eur(saving(prev));
+  $("prevLabel").textContent=label(prev);
+  renderExpenses();renderSolutions();renderReviews();
+}
+render();
+})();
+</script>
+</body>
+</html>

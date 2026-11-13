@@ -425,3 +425,35 @@ function actualizar() {
   const media = resenas.length
     ? resenas.reduce((s, x) => s + x.valoracion, 0) / resenas.length
     : 0;
+
+  document.getElementById("mediaResenas").textContent =
+    media.toFixed(1) + " / 5";
+  document.getElementById("totalResenas").textContent =
+    resenas.length + " reseña(s) publicada(s)";
+
+  document.getElementById("listaResenas").innerHTML =
+    resenas.map(x => `
+      <div class="item">
+        <strong>${escapar(x.alias)}</strong>
+        <div class="stars">${"★".repeat(x.valoracion)}${"☆".repeat(5-x.valoracion)}</div>
+        <p>${escapar(x.comentario)}</p>
+      </div>
+    `).join("") || "<p>Sé la primera persona en dejar una reseña.</p>";
+
+  document.getElementById("anterior").value = ahorroAnterior || "";
+}
+
+function escapar(valor) {
+  return String(valor).replace(/[&<>"']/g, caracter => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[caracter]);
+}
+
+actualizar();
+</script>
+</body>
+</html>
